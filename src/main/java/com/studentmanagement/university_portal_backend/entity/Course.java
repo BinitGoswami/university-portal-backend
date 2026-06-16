@@ -1,7 +1,9 @@
 package com.studentmanagement.university_portal_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +23,10 @@ public class Course {
     // Many Courses can have Many Students
     @ManyToMany(mappedBy = "courses")
     private List<Student> students;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Enrollment> enrollments = new ArrayList<>();
 
     // --- Constructors ---
     public Course() {}
@@ -42,4 +48,7 @@ public class Course {
 
     public List<Student> getStudents() { return students; }
     public void setStudents(List<Student> students) { this.students = students; }
+
+    public List<Enrollment> getEnrollments() { return enrollments; }
+    public void setEnrollments(List<Enrollment> enrollments) { this.enrollments = enrollments; }
 }

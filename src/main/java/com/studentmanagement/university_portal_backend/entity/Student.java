@@ -1,7 +1,9 @@
 package com.studentmanagement.university_portal_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,6 +37,10 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "course_id") // The column for the course
     )
     private List<Course> courses;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Enrollment> enrollments = new ArrayList<>();
 
     // ---- Constructors ----
 
@@ -70,4 +76,7 @@ public class Student {
 
     public List<Course> getCourses() { return courses; }
     public void setCourses(List<Course> courses) { this.courses = courses; }
+
+    public List<Enrollment> getEnrollments() { return enrollments; }
+    public void setEnrollments(List<Enrollment> enrollments) { this.enrollments = enrollments; }
 }

@@ -5,7 +5,6 @@ import com.studentmanagement.university_portal_backend.entity.User;
 import com.studentmanagement.university_portal_backend.repository.UserRepository;
 import com.studentmanagement.university_portal_backend.service.CustomUserDetailsService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -28,8 +27,8 @@ public class AuthController {
     private final CustomUserDetailsService userDetailsService;
 
     public AuthController(UserRepository userRepository, PasswordEncoder passwordEncoder,
-                          AuthenticationManager authenticationManager, JwtUtils jwtUtils,
-                          CustomUserDetailsService userDetailsService) {
+            AuthenticationManager authenticationManager, JwtUtils jwtUtils,
+            CustomUserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
@@ -61,8 +60,7 @@ public class AuthController {
         try {
             // 1. Spring Security checks the password against the database
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
-            );
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>("Incorrect username or password", HttpStatus.UNAUTHORIZED);
         }
