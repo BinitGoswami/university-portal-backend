@@ -48,6 +48,14 @@ public class SecurityConfig {
                         // Allow anyone to register
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        // Allow anyone to view the Swagger UI
+                        .requestMatchers(
+                                "/v3/api-docs",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+
                         // Role-Based Rules
                         .requestMatchers("/api/faculty/**").hasRole("ADMIN")
 
